@@ -8,6 +8,14 @@ export const MealLogDashboard = ({ initialData = [], userId }) => {
   const [portionRatio, setPortionRatio] = useState(1.0);
   const sliderInputId = useId();
 
+  // Sync state if initialData is fetched asynchronously from backend API
+  useEffect(() => {
+    if (initialData && initialData.length > 0) {
+      setMealLogs(initialData);
+      setSelectedMeal((prev) => (prev ? initialData.find((m) => m.id === prev.id) || initialData[0] : initialData[0]));
+    }
+  }, [initialData]);
+
   const handleSelectMeal = useCallback((meal) => {
     setSelectedMeal(meal);
     setPortionRatio(1.0); // Reset portion for newly selected meal
