@@ -1,0 +1,81 @@
+/* LoginModal.css - Extracted classes keeping JSX pristine */
+
+.nl-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.nl-modal-box {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  width: 100%;
+  max-width: 400px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.nl-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nl-modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.nl-modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.nl-modal-close-btn:hover {
+  color: #0f172a;
+}
+
+.nl-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nl-modal-error {
+  padding: 0.625rem;
+  border-radius: 0.375rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecdd3;
+  color: #b91c1c;
+  font-size: 0.8125rem;
+}
+
+.nl-login-submit-btn {
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  background-color: #10b981;
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.nl-login-submit-btn:hover {
+  background-color: #059669;
+}

@@ -1,0 +1,219 @@
+/* NutritionTipsTab.css - Extracted classes keeping JSX pristine */
+
+.nl-tips-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.nl-tips-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .nl-tips-header-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.nl-tips-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.nl-tips-subheading {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.nl-add-tip-btn {
+  align-self: flex-start;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: #10b981;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.nl-add-tip-btn:hover {
+  background-color: #059669;
+}
+
+/* Form Card */
+.nl-tip-form-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nl-form-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.nl-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .nl-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.nl-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.nl-form-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.nl-form-input,
+.nl-form-select,
+.nl-form-textarea {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #cbd5e1;
+  font-size: 0.875rem;
+  outline: none;
+  font-family: inherit;
+}
+
+.nl-form-input:focus,
+.nl-form-select:focus,
+.nl-form-textarea:focus {
+  border-color: #10b981;
+}
+
+.nl-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.nl-btn-secondary {
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.375rem;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.nl-btn-primary {
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.375rem;
+  border: none;
+  background-color: #10b981;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Tips Cards Grid */
+.nl-tips-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .nl-tips-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.nl-tip-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nl-tip-content-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nl-tip-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nl-tip-goal-tag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #0369a1;
+  background-color: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 9999px;
+  padding: 0.125rem 0.5rem;
+}
+
+.nl-tip-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.nl-tip-body {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.nl-tip-delete-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  color: #e11d48;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.nl-tip-delete-btn:hover {
+  background-color: #ffe4e6;
+}

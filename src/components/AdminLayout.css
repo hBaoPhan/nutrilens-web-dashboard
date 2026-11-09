@@ -1,0 +1,234 @@
+/* AdminLayout.css - Extracted Stylesheet keeping JSX clean and modular */
+
+.nl-layout-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  padding-bottom: 4.5rem; /* Room for mobile bottom bar */
+}
+
+@media (min-width: 768px) {
+  .nl-layout-container {
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* Header */
+.nl-topbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.nl-topbar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nl-brand-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nl-brand-logo {
+  width: 2.25rem;
+  height: 2.25rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.125rem;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.25);
+}
+
+.nl-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nl-brand-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.25;
+}
+
+.nl-brand-badge {
+  font-size: 0.6875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Desktop Nav Tabs */
+.nl-desktop-nav {
+  display: none;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+@media (min-width: 768px) {
+  .nl-desktop-nav {
+    display: flex;
+  }
+}
+
+.nl-nav-tab {
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748b;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nl-nav-tab:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.nl-nav-tab-active {
+  background-color: #ecfdf5;
+  color: #059669;
+}
+
+/* Right Controls */
+.nl-controls-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nl-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.nl-status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #10b981;
+  border-radius: 9999px;
+  animation: nl-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes nl-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.nl-auth-btn {
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.nl-auth-btn:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.nl-logout-btn {
+  border-color: #fecdd3;
+  color: #e11d48;
+}
+
+.nl-logout-btn:hover {
+  background-color: #fff1f2;
+}
+
+/* Main Content Area */
+.nl-main-content {
+  flex: 1;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .nl-main-content {
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile Bottom Navigation Bar */
+.nl-mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.375rem 0.5rem calc(0.375rem + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 768px) {
+  .nl-mobile-bottom-nav {
+    display: none;
+  }
+}
+
+.nl-mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  color: #64748b;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  cursor: pointer;
+  flex: 1;
+  transition: color 0.15s ease-in-out;
+}
+
+.nl-mobile-nav-icon {
+  font-size: 1.125rem;
+  margin-bottom: 0.125rem;
+}
+
+.nl-mobile-nav-item-active {
+  color: #059669;
+  font-weight: 700;
+}
