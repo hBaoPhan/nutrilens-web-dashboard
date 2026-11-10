@@ -66,6 +66,23 @@ describe('Admin Portal Components', () => {
     expect(screen.queryByText('Cơm Tấm Sườn Bì Chả')).toBeNull();
   });
 
+  it('opens add food modal when clicking + Thêm Món Ăn Mới in FoodDatabaseTab', () => {
+    render(
+      <FoodDatabaseTab
+        foods={mockFoods}
+        onAddFood={() => {}}
+        onUpdateFood={() => {}}
+        onDeleteFood={() => {}}
+      />
+    );
+
+    const addBtn = screen.getByRole('button', { name: /\+ Thêm Món Ăn Mới/i });
+    fireEvent.click(addBtn);
+
+    expect(screen.getByText('Thêm Món Ăn Mới Vào CSDL')).toBeDefined();
+    expect(screen.getByLabelText(/Mật độ thể tích/i)).toBeDefined();
+  });
+
   it('renders NutritionTipsTab and toggles add tip form', () => {
     render(<NutritionTipsTab tips={mockTips} onAddTip={() => {}} onDeleteTip={() => {}} />);
 

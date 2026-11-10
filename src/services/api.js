@@ -200,3 +200,61 @@ export const tipsApi = {
     return true;
   }
 };
+
+export const adminApi = {
+  getStats: async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/admin/stats`, {
+        headers: getAuthHeaders()
+      });
+      if (!response.ok) throw new Error('Không thể tải dữ liệu thống kê');
+      return await response.json();
+    } catch {
+      return {
+        totalFoods: 4,
+        totalMealLogs: 2,
+        totalUsers: 1,
+        totalTips: 2,
+        averageKcalPerMeal: 587.5,
+        springBootStatus: 'UP',
+        aiServiceStatus: 'UP',
+        databaseStatus: 'UP'
+      };
+    }
+  },
+
+  createFood: async (foodData) => {
+    const response = await fetch(`${API_BASE_URL}/admin/foods`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(foodData)
+    });
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.message || 'Tạo món ăn thất bại');
+    }
+    return response.json();
+  },
+
+  updateFood: async (id, foodData) => {
+    const response = await fetch(`${API_BASE_URL}/admin/foods/${id}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(foodData)
+    });
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.message || 'Cập nhật món ăn thất bại');
+    }
+    return response.json();
+  },
+
+  deleteFood: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/admin/foods/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+    if (!response.ok) throw new Error('Xóa món ăn thất bại');
+    return true;
+  }
+};

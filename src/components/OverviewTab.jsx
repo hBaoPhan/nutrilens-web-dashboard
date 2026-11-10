@@ -2,13 +2,20 @@ import React, { useMemo } from 'react';
 import './OverviewTab.css';
 import { NAV_TABS } from './AdminLayout';
 
-export const OverviewTab = ({ foods = [], mealLogs = [], tips = [], onNavigateTab }) => {
+export const OverviewTab = ({ foods = [], mealLogs = [], tips = [], systemStats = null, onNavigateTab }) => {
   // Memoized KPI calculations for peak performance
   const avgKcal = useMemo(() => {
+    if (systemStats?.averageKcalPerMeal != null) {
+      return Math.round(Number(systemStats.averageKcalPerMeal));
+    }
     if (!mealLogs.length) return 0;
     const sum = mealLogs.reduce((acc, curr) => acc + (Number(curr.totalKcal) || 0), 0);
     return Math.round(sum / mealLogs.length);
-  }, [mealLogs]);
+  }, [mealLogs, systemStats]);
+
+  const totalFoodsCount = systemStats?.totalFoods ?? foods.length;
+  const totalLogsCount = systemStats?.totalMealLogs ?? mealLogs.length;
+  const totalTipsCount = systemStats?.totalTips ?? tips.length;
 
   return (
     <div className="nl-overview-container">
@@ -26,7 +33,7 @@ export const OverviewTab = ({ foods = [], mealLogs = [], tips = [], onNavigateTa
             <span className="nl-kpi-label">CSDL Món Ăn</span>
             <span className="nl-kpi-icon">🍲</span>
           </div>
-          <div className="nl-kpi-value">{foods.length}</div>
+          <div className="nl-kpi-value">{totalFoodsCount}</div>
           <div className="nl-kpi-footer">
             <span>✓ Đã kiểm định calo</span>
           </div>
@@ -37,7 +44,7 @@ export const OverviewTab = ({ foods = [], mealLogs = [], tips = [], onNavigateTa
             <span className="nl-kpi-label">Lượt Quét AR</span>
             <span className="nl-kpi-icon">📷</span>
           </div>
-          <div className="nl-kpi-value">{mealLogs.length}</div>
+          <div className="nl-kpi-value">{totalLogsCount}</div>
           <div className="nl-kpi-footer">
             <span>✓ Đo thể tích 3D</span>
           </div>
@@ -59,7 +66,7 @@ export const OverviewTab = ({ foods = [], mealLogs = [], tips = [], onNavigateTa
             <span className="nl-kpi-label">Tips Dinh Dưỡng</span>
             <span className="nl-kpi-icon">💡</span>
           </div>
-          <div className="nl-kpi-value">{tips.length}</div>
+          <div className="nl-kpi-value">{totalTipsCount}</div>
           <div className="nl-kpi-footer">
             <span>Đang phát hành</span>
           </div>
@@ -78,7 +85,7 @@ export const OverviewTab = ({ foods = [], mealLogs = [], tips = [], onNavigateTa
               <span className="nl-service-name">Spring Boot Backend Core</span>
               <span className="nl-service-port">Port 8080 (REST + JWT Security)</span>
             </div>
-            <span className="nl-service-badge">ACTIVE</span>
+            <span className="nl-service-badge">{systemStats?.springBootStatus || 'ACTIVE'}</span>
           </div>
 
           <div className="nl-service-item">
@@ -86,7 +93,7 @@ export const OverviewTab = ({ foods = [], mealLogs = [], tips = [], onNavigateTa
               <span className="nl-service-name">FastAPI YOLOv8-seg Service</span>
               <span className="nl-service-port">Port 8000 (Vietnamese Food AI)</span>
             </div>
-            <span className="nl-service-badge">ACTIVE</span>
+            <span className="nl-service-badge">{systemStats?.aiServiceStatus || 'ACTIVE'}</span>
           </div>
 
           <div className="nl-service-item">
@@ -94,7 +101,7 @@ export const OverviewTab = ({ foods = [], mealLogs = [], tips = [], onNavigateTa
               <span className="nl-service-name">MySQL 8.0 InnoDB Database</span>
               <span className="nl-service-port">Port 3306 (utf8mb4 Unicode)</span>
             </div>
-            <span className="nl-service-badge">HEALTHY</span>
+            <span className="nl-service-badge">{systemStats?.databaseStatus || 'HEALTHY'}</span>
           </div>
         </div>
       </section>

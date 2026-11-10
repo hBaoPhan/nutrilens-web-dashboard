@@ -5,7 +5,7 @@ import { FoodDatabaseTab } from './components/FoodDatabaseTab';
 import { MealLogDashboard } from './components/MealLogDashboard';
 import { NutritionTipsTab } from './components/NutritionTipsTab';
 import { LoginModal } from './components/LoginModal';
-import { foodApi, mealLogApi, tipsApi, authApi, setStoredToken } from './services/api';
+import { foodApi, mealLogApi, tipsApi, authApi, adminApi, setStoredToken } from './services/api';
 
 const sampleMealLogs = [
   {
@@ -33,6 +33,7 @@ export const App = () => {
   const [foods, setFoods] = useState([]);
   const [mealLogs, setMealLogs] = useState(sampleMealLogs);
   const [tips, setTips] = useState([]);
+  const [systemStats, setSystemStats] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,10 +42,11 @@ export const App = () => {
   const loadData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [fetchedFoods, fetchedLogs, fetchedTips] = await Promise.all([
+      const [fetchedFoods, fetchedLogs, fetchedTips, fetchedStats] = await Promise.all([
         foodApi.getFoods(),
         mealLogApi.getMealLogs(),
-        tipsApi.getTips()
+        tipsApi.getTips(),
+        adminApi.getStats()
       ]);
 
       if (fetchedFoods && fetchedFoods.length > 0) {
@@ -55,6 +57,9 @@ export const App = () => {
       }
       if (fetchedTips && fetchedTips.length > 0) {
         setTips(fetchedTips);
+      }
+      if (fetchedStats) {
+        setSystemStats(fetchedStats);
       }
     } catch (err) {
       console.warn('Backend offline or loading failed, using fallback data:', err);
@@ -81,6 +86,64 @@ export const App = () => {
   const handleLogout = () => {
     setStoredToken(null);
     setCurrentUser(null);
+  };
+
+  // Food Management Handlers
+  const handleAddFood = async (foodData) => {
+    try {
+      const created = await adminApi.createFood(foodData);
+      setFoods((prev) => [created, ...prev]);
+    } catch {
+      // Local fallback for offline demo
+      const mockCreated = {
+        id: Date.now(),
+        foodCode: foodData.foodCode,
+        displayName: foodData.displayName,
+        category: foodData.category,
+        densityGPerCm3: foodData.densityGramsPerCm3,
+        kcalPer100g: foodData.kcalPer100g,
+        proteinPer100g: foodData.proteinPer100g,
+        carbPer100g: foodData.carbPer100g,
+        fatPer100g: foodData.fatPer100g,
+        emoji: foodData.emoji
+      };
+      setFoods((prev) => [mockCreated, ...prev]);
+    }
+  };
+
+  const handleUpdateFood = async (id, foodData) => {
+    try {
+      const updated = await adminApi.updateFood(id, foodData);
+      setFoods((prev) => prev.map((f) => (f.id === id ? updated : f)));
+    } catch {
+      // Local fallback for offline demo
+      setFoods((prev) =>
+        prev.map((f) =>
+          f.id === id
+            ? {
+                ...f,
+                displayName: foodData.displayName,
+                category: foodData.category,
+                densityGPerCm3: foodData.densityGramsPerCm3,
+                kcalPer100g: foodData.kcalPer100g,
+                proteinPer100g: foodData.proteinPer100g,
+                carbPer100g: foodData.carbPer100g,
+                fatPer100g: foodData.fatPer100g,
+                emoji: foodData.emoji
+              }
+            : f
+        )
+      );
+    }
+  };
+
+  const handleDeleteFood = async (id) => {
+    try {
+      await adminApi.deleteFood(id);
+    } catch {
+      // Offline support
+    }
+    setFoods((prev) => prev.filter((f) => f.id !== id));
   };
 
   // Tips Management Handlers
@@ -126,12 +189,18 @@ export const App = () => {
           foods={foods}
           mealLogs={mealLogs}
           tips={tips}
+          systemStats={systemStats}
           onNavigateTab={setActiveTab}
         />
       )}
 
       {activeTab === NAV_TABS.FOODS && (
-        <FoodDatabaseTab foods={foods} />
+        <FoodDatabaseTab
+          foods={foods}
+          onAddFood={handleAddFood}
+          onUpdateFood={handleUpdateFood}
+          onDeleteFood={handleDeleteFood}
+        />
       )}
 
       {activeTab === NAV_TABS.MEAL_LOGS && (
